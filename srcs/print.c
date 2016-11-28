@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:48:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 17:28:45 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/27 22:32:17 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** credit to http://stackoverflow.com/a/12996028/1210278 for the mixer
 */
 
-static uint32_t		mixhash(uint32_t x)
+uint32_t			mixhash(uint32_t x)
 {
 	x = ((x >> 16) ^ x) * 0x45d9f3b;
 	x = ((x >> 16) ^ x) * 0x45d9f3b;
@@ -33,7 +33,7 @@ static const char	*color(int val)
 {
 	int idx;
 
-	idx = mixhash(val) % 216 + 16;
+	idx = mixhash(val) % 216;
 	return (&COLORTAB[idx * COLORSTRIDE]);
 }
 
@@ -53,16 +53,16 @@ void				print_stack(t_stack *st)
 	while (idx-- > 0)
 	{
 		if (idx >= st->st_a.item_count)
-			ft_printf("%*s %s%*d" RESET "\n", width, "",
+			ft_dprintf(2, "%*s %s%*d" RESET "\n", width, "",
 					color(AGET(st, b, idx)), width, AGET(st, b, idx));
 		else if (idx >= st->st_b.item_count)
-			ft_printf("%s%*d" RESET " %*s\n", color(AGET(st, a, idx)), width,
+			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(AGET(st, a, idx)), width,
 					AGET(st, a, idx), width, "");
 		else
-			ft_printf("%s%*d" RESET" %s%*d" RESET "\n", color(AGET(st, a, idx)),
-					width, AGET(st, a, idx), color(AGET(st, b, idx)), width,
-					AGET(st, b, idx));
+			ft_dprintf(2, "%s%*d" RESET" %s%*d" RESET "\n", color(AGET(st, a,
+					idx)), width, AGET(st, a, idx), color(AGET(st, b, idx)),
+					width, AGET(st, b, idx));
 	}
-	ft_printf("%.*s %.*s\n", width, "------------", width, "------------");
-	ft_printf("%*s %*s\n", width, "a", width, "b");
+	ft_dprintf(2, "%.*s %.*s\n", width, "------------", width, "------------");
+	ft_dprintf(2, "%*s %*s\n", width, "a", width, "b");
 }

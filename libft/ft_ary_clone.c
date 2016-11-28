@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_guard.h                                         :+:      :+:    :+:   */
+/*   ft_ary_clone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/27 15:46:20 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 23:44:38 by kyork            ###   ########.fr       */
+/*   Created: 2016/11/27 21:13:59 by kyork             #+#    #+#             */
+/*   Updated: 2016/11/27 21:18:08 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GUARD_H
-# define FT_GUARD_H
+#include "libft.h"
+#include <stdlib.h>
 
-# define GFAIL(val, expr) {(void)(expr); return (val);}
-# define GCONT(expr) {(void)(expr); continue;}
-# define ASGUARD(f,v, ...) ({int _r=ft_asprintf(v,__VA_ARGS__);if (_r<0){ f }})
-# define ZGUARD(fail, expr) if ((expr) != 0) { fail }
-# define NGUARD(fail, expr) if ((expr) == NULL) { fail }
-# define TGUARD(fail, expr) if ((expr)) { fail }
+t_array		ft_ary_clone(t_array ary, size_t min_size)
+{
+	void	*ptr;
 
-#endif
+	if (ary.item_count > min_size)
+		min_size = ary.item_count;
+	ptr = ft_memalloc(ary.item_size * min_size);
+	if (!ptr)
+		return (FT_ARY_NULL);
+	ft_memcpy(ptr, ary.ptr, ary.item_size * ary.item_count);
+	return ((t_array){ptr, ary.item_size, ary.item_count, min_size});
+}

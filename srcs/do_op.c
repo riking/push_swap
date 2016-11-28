@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:27:11 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 16:43:25 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/27 22:15:39 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@ void	stack_do(t_stack *st, t_op op)
 	if (op == OP_PB)
 		move(&st->st_a, MODE_TOP, &st->st_b, MODE_TOP);
 	ft_ary_append(&st->ops, &op);
+}
+
+t_op	op_inverse(t_op op)
+{
+	if (op == OP_SA || op == OP_SB || op == OP_SS)
+		return (op);
+	if (op == OP_PA)
+		return (OP_PB);
+	if (op == OP_PB)
+		return (OP_PA);
+	if (op == OP_RA || op == OP_RB || op == OP_RR)
+		return (op + OP_RRA - OP_RA);
+	if (op == OP_RRA || op == OP_RRB || op == OP_RRR)
+		return (op - OP_RRA + OP_RA);
+	return (OP_INVALID);
 }
 
 void	stack_undo(t_stack *st)

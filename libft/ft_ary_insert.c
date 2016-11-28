@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/24 14:47:04 by kyork             #+#    #+#             */
-/*   Updated: 2016/10/01 15:36:07 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/27 22:25:24 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_ary_insert(t_array *ary, void *item, size_t idx)
 		return (ft_ary_append(ary, item));
 	if (idx > ary->item_count)
 		return (FT_ARY_ERR_BOUNDS);
-	if (ary->item_count + 1 == ary->item_cap)
+	if (ary->item_count + 1 >= ary->item_cap)
 	{
 		status = ft_ary_grow(ary, ary->item_cap * FT_ARY_GROW_FACTOR);
 		if (status != 0)

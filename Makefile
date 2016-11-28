@@ -6,28 +6,22 @@
 #    By: kyork <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 19:11:26 by kyork             #+#    #+#              #
-#    Updated: 2016/11/27 17:41:12 by kyork            ###   ########.fr        #
+#    Updated: 2016/11/28 00:04:19 by kyork            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= push_swap
 
-COMMONSRC	+= input.c do_op.c print.c
-COMMONHDR	= ps_stack.h
+COMMONSRC	+= input.c do_op.c print.c stack.c
 
-SOLVESRC	+= 
-SOLVEHDR	=
+SOLVESRC	+= main.c path_step.c path_node.c path_solution.c path_solve.c
+SOLVESRC	+= help_mthb.c
 
 CHECKSRC	+= main.c parse.c
-CHECKHDR	= 
 
 COMMONOBJS	= $(addprefix build/common-, $(COMMONSRC:.c=.o))
 SOLVEOBJS	= $(addprefix build/solve-, $(SOLVESRC:.c=.o))
 CHECKOBJS	= $(addprefix build/check-, $(CHECKSRC:.c=.o))
-
-COMMONHEAD	= $(addprefix srcs/, $(COMMONHDR))
-SOLVEHEAD	= $(addprefix srcs/, $(SOLVEHDR))
-CHECKHEAD	= $(addprefix srcs/, $(CHECKHDR))
 
 LIBS		= libft/libft.a
 
@@ -85,12 +79,12 @@ re: fclean
 build:
 	mkdir -p build
 
-build/common-%.o: srcs/%.c $(COMMONHEAD) | build
+build/common-%.o: srcs/%.c | build
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-build/solve-%.o: srcs/solve/%.c $(COMMONHEAD) $(SOLVEHEAD) | build
+build/solve-%.o: srcs/solve/%.c | build
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-build/check-%.o: srcs/check/%.c $(COMMONHEAD) $(CHECKHEAD) | build
+build/check-%.o: srcs/check/%.c | build
 	$(CC) $(CFLAGS) -c -o $@ $<
 

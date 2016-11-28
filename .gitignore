@@ -1,0 +1,4 @@
+.*.swp
+build/
+checker
+push_swap

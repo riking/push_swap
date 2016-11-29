@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:18:17 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 16:43:03 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:03:11 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void			p_free(t_psolver *g)
 {
 	g->solved_left = NULL;
 	ft_ary_foreach(&g->hashtable, &freebucket);
-	//ft_ary_foreach(&g->workqueue, &p_lfreenode);
+	ft_ary_destroy(&g->hashtable);
+	ft_ary_destroy(&g->workqueue);
 	p_freenode(g->solved_right);
 }
 

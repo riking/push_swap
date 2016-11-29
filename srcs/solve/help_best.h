@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:13:10 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 15:25:25 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:00:52 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define HELP_BEST_H
 
 # include "../ps_stack.h"
+# include <sys/types.h>
 
 /*
 ** This algorithm is largely based on this answer:

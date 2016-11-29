@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 15:45:06 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:01:19 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ static void	apply(t_hsolver *g, t_op op, int status)
 
 void		h_move(t_hsolver *g, int src, int dst)
 {
-	size_t	check_last;
-
-	check_last = g->st->ops.item_count;
 	if (src == H_ROLL)
 		apply(g, OP_RRA, g->hrollidx--);
 	if (src == H_PUSH)

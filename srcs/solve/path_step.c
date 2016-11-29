@@ -6,21 +6,15 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 12:47:55 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 16:31:34 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "path.h"
 #include <ft_printf.h>
 
-static int	p_onmatch(t_psolver *g, t_pnode *n, ssize_t idx)
+static int	p_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 {
-	t_array		*known;
-	t_pnode		*kn;
-
-	known = (t_array*)ft_ary_get(&g->hashtable, stack_hash(n->st) %
-			HASH_BUCKETS);
-	kn = *(t_pnode**)ft_ary_get(known, idx);
 	if (kn->from_solved == n->from_solved)
 	{
 		if (n->st->ops.item_count < kn->st->ops.item_count)
@@ -38,25 +32,40 @@ static int	p_onmatch(t_psolver *g, t_pnode *n, ssize_t idx)
 	return (PSUB_MATCH);
 }
 
-int			p_submit(t_psolver *g, t_pnode *n)
+t_pnode		*p_findeq(t_psolver *g, t_stack *st)
 {
 	t_array		*known;
 	t_pnode		*kn;
 	ssize_t		idx;
 	uint32_t	h;
 
-	h = stack_hash(n->st);
+	h = stack_hash(st);
 	known = (t_array*)ft_ary_get(&g->hashtable, h % HASH_BUCKETS);
 	idx = -1;
 	while (++idx < (ssize_t)known->item_count)
 	{
 		kn = *(t_pnode**)ft_ary_get(known, idx);
-		if (0 == stack_cmp(kn->st, n->st))
+		if (0 == stack_cmp(kn->st, st))
 		{
-			return (p_onmatch(g, n, idx));
+			return (kn);
 		}
 	}
-	ft_ary_append(known, &n);
+	return (NULL);
+}
+
+int			p_submit(t_psolver *g, t_pnode *n)
+{
+	t_array		*bucket;
+	t_pnode		*kn;
+
+	kn = p_findeq(g, n->st);
+	if (kn != NULL)
+	{
+		return (p_onmatch(g, n, kn));
+	}
+	bucket = (t_array*)ft_ary_get(&g->hashtable,
+			stack_hash(n->st) % HASH_BUCKETS);
+	ft_ary_append(bucket, &n);
 	ft_ary_append(&g->workqueue, &n);
 	return (PSUB_OKAY);
 }

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:13:10 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 00:05:22 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 15:25:25 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 */
 
 typedef struct	s_hsolver {
-	size_t		hrollidx;
-	size_t		hpushidx;
+	ssize_t		hrollidx;
+	ssize_t		hpushidx;
 
 	t_stack		*st;
 }				t_hsolver;
@@ -33,7 +33,8 @@ typedef struct	s_hsolver {
 # define H_ROLL 1
 # define H_PUSH 2
 
-t_array			h_getview(t_hsolver *g, int which);
+ssize_t			h_getcount(t_hsolver *g, int which);
+int				h_getel(t_hsolver *g, int which, ssize_t idx);
 
 /*
 ** calling _start is setting everything=False
@@ -46,5 +47,10 @@ void			h_main_to_help_best(t_hsolver *g,
 
 void			h_move(t_hsolver *g, int src, int dst);
 void			h_push_to_main(t_hsolver *g, int src, int count);
+void			h_push_to_help(t_hsolver *g, int src, int dst, int count);
+void			h_help_to_help(t_hsolver *g, int src, int dst, int count);
+void			h_move_to_main(t_hsolver *g, int src, int help, int count);
+
+t_array			help_sort(t_stack *st, t_stack *sorted);
 
 #endif

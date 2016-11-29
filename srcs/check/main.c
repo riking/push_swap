@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:10:53 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 17:50:03 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 16:46:32 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		main(int argc, char **argv)
 {
 	t_stack		*st;
 	bool		print;
+	int			ret;
 
 	print = (0 == ft_strcmp(argv[1], "-v"));
 	if (print)
@@ -90,5 +91,7 @@ int		main(int argc, char **argv)
 		ft_dprintf(2, "Error\n");
 		return (2);
 	}
-	return (presult(check(print, st)));
+	ret = presult(check(print, st));
+	stack_free(st);
+	return (ret);
 }

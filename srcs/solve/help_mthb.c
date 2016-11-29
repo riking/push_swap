@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:42:30 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 00:06:31 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 15:29:16 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@
 
 #define GRET(expr) {(void)(expr); return;}
 
-static ssize_t	find_largest(t_array main, size_t offset, int64_t *maxp)
+static ssize_t	find_largest(t_hsolver *g, size_t offset, int64_t *maxp)
 {
 	ssize_t	idx;
 	int64_t	max;
+	size_t	main_len;
+	int		el;
    
 	idx = -1;
 	max = -1000000000LL;
-	while (offset < main.item_count)
+	main_len = h_getcount(g, H_MAIN);
+	while (offset < main_len)
 	{
-		if (RGET(&main, offset) >= max)
+		el = h_getel(g, H_MAIN, offset);
+		if (el >= max)
 		{
 			idx = offset;
-			max = RGET(&main, offset);
+			max = el; 
 		}
 		offset++;
 	}
@@ -41,22 +45,19 @@ static ssize_t	find_largest(t_array main, size_t offset, int64_t *maxp)
 void			h_main_to_help_best(t_hsolver *g, int dst, int helper,
 				size_t offset)
 {
-	t_array		main;
 	ssize_t		idx;
 	int64_t		max_el;
 	int			top_count;
 
-	main = h_getview(g, 0);
-	TGUARD(GRET(0), offset >= main.item_count);
-	idx = find_largest(main, offset, &max_el);
+	TGUARD(GRET(0), offset >= (size_t)h_getcount(g, H_MAIN));
+	idx = find_largest(g, offset, &max_el);
 	while (idx >= (ssize_t)offset)
 	{
-		TGUARD(GCONT(0), RGET(&main, idx) < max_el);
-		top_count = main.item_count - idx - 1;
+		TGUARD(GCONT(idx--), h_getel(g, H_MAIN, idx) < max_el);
+		top_count = h_getcount(g, H_MAIN) - idx - 1;
 		h_main_to_help_best(g, helper, dst, idx + 1);
 		h_move(g, H_MAIN, dst);
 		h_push_to_main(g, helper, top_count);
-		main = h_getview(g, H_MAIN);
 		idx--;
 	}
 	h_main_to_help_best(g, dst, helper, offset);
@@ -65,22 +66,19 @@ void			h_main_to_help_best(t_hsolver *g, int dst, int helper,
 void			h_main_to_help_best_start(t_hsolver *g, int dst, int helper,
 				size_t offset)
 {
-	t_array		main;
 	ssize_t		idx;
 	int64_t		max_el;
 	int			top_count;
 
-	main = h_getview(g, 0);
-	TGUARD(GRET(0), offset >= main.item_count);
-	idx = find_largest(main, offset, &max_el);
+	TGUARD(GRET(0), offset >= (size_t)h_getcount(g, H_MAIN));
+	idx = find_largest(g, offset, &max_el);
 	while (idx >= (ssize_t)offset)
 	{
-		TGUARD(GCONT(0), RGET(&main, idx) < max_el);
-		top_count = main.item_count - idx - 1;
+		TGUARD(GCONT(idx--), h_getel(g, H_MAIN, idx) < max_el);
+		top_count = h_getcount(g, H_MAIN) - idx - 1;
 		h_main_to_help_best(g, helper, dst, idx + 1);
 		h_move(g, H_MAIN, dst);
 		h_push_to_main(g, helper, top_count);
-		main = h_getview(g, H_MAIN);
 		idx--;
 	}
 	h_main_to_help_best(g, helper, dst, offset);

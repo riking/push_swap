@@ -6,12 +6,13 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:38:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 23:30:41 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 16:41:49 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ps_stack.h"
 #include "path.h"
+#include "help_best.h"
 #include <ft_printf.h>
 #include <stdlib.h>
 
@@ -49,6 +50,7 @@ int			main(int argc, char **argv)
 	sorted = stack_clone(st);
 	ft_ary_sort(&sorted->st_a, &cmp_int, NULL);
 	ops = p_do_solve(st, sorted);
+	//ops = help_sort(st, sorted);
 	idx = 0;
 	while (idx < ops.item_count)
 		ft_printf("%s\n", op_name(*(t_op*)ft_ary_get(&ops, idx++)));

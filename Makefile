@@ -6,7 +6,7 @@
 #    By: kyork <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 19:11:26 by kyork             #+#    #+#              #
-#    Updated: 2016/11/28 00:04:19 by kyork            ###   ########.fr        #
+#    Updated: 2016/11/28 16:44:00 by kyork            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,9 @@ NAME		= push_swap
 
 COMMONSRC	+= input.c do_op.c print.c stack.c
 
-SOLVESRC	+= main.c path_step.c path_node.c path_solution.c path_solve.c
-SOLVESRC	+= help_mthb.c
+SOLVESRC	+= main.c optimize_path.c
+SOLVESRC	+= path_step.c path_node.c path_solution.c path_solve.c
+SOLVESRC	+= help_mthb.c help_move.c help_view.c help_push.c help_sort.c
 
 CHECKSRC	+= main.c parse.c
 

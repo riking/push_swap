@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:01:19 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:11:46 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	undoidx(t_hsolver *g, t_op insert, size_t count)
 		stack_do(g->st, insert);
 		ft_ary_poplast(&holding);
 	}
+	ft_ary_destroy(&holding);
 }
 
 static int	h_move_rollcombine(t_hsolver *g, t_op cur, t_op op, size_t count)

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:18:17 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:03:11 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:05:06 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void		freebucket(void *item, size_t size)
 		exit(3);
 	bucket = item;
 	ft_ary_foreach(bucket, &p_lfreenode);
+	ft_ary_destroy(bucket);
 }
 
 void			p_free(t_psolver *g)

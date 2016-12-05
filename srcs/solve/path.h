@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:28:58 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 13:28:57 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 15:49:12 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_pnode {
 	bool			from_solved;
 }				t_pnode;
 
-# define HASH_BUCKETS 16
+# define HASH_BUCKETS 64
 
 typedef struct	s_psolver {
 	t_array		hashtable;

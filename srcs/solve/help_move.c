@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:46:42 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 14:31:11 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int	h_move_do(t_hsolver *g, t_op op)
 	int		status;
 	t_op	cur;
 
+	return (MDO_ADD);
 	count = 1;
 	while (1)
 	{

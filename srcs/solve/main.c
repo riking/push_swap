@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:38:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 13:53:58 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 14:54:46 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			main(int argc, char **argv)
 {
 	t_stack 	*st;
 	t_stack 	*sorted;
+	t_stack		*st2;
 	t_array		ops;
 	size_t		idx;
 
@@ -49,9 +50,18 @@ int			main(int argc, char **argv)
 	print_stack(st);
 	sorted = stack_clone(st);
 	ft_ary_sort(&sorted->st_a, &cmp_int, NULL);
+	st2 = stack_clone(st);
 	//ops = p_do_solve(st, sorted);
-	ops = help_sort(st, sorted);
-	ops = p_optimize(ops, st, sorted);
+	ops = help_sort(st2, sorted);
+	stack_free(st2);
+	ft_dprintf(2, "before optimization:\n");
+	idx = 0;
+	while (idx < ops.item_count)
+		ft_dprintf(2, "%s ", op_name(*(t_op*)ft_ary_get(&ops, idx++)));
+	ft_dprintf(2, "\n");
+	st2 = stack_clone(st);
+	ops = p_optimize(ops, st2, sorted);
+	stack_free(st2);
 	idx = 0;
 	while (idx < ops.item_count)
 		ft_printf("%s\n", op_name(*(t_op*)ft_ary_get(&ops, idx++)));

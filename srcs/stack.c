@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:10:39 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:02:46 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 15:22:33 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ t_stack		*stack_clone(t_stack *s)
 
 int			stack_cmp(t_stack *l, t_stack *r)
 {
-	size_t	idx;
+	int		status;
+	char	*st_l;
+	char	*st_r;
 
 	if (l->st_a.item_count != r->st_a.item_count)
 		return ((l->st_a.item_count < r->st_a.item_count) ? -1 : 1);
-	idx = 0;
-	while (idx < l->st_a.item_count)
-	{
-		if (AGET(l, a, idx) != AGET(r, a, idx))
-			return ((AGET(l, a, idx) < AGET(r, a, idx)) ? -1 : 1);
-		idx++;
-	}
-	idx = 0;
-	while (idx < l->st_b.item_count)
-	{
-		if (AGET(l, b, idx) != AGET(r, b, idx))
-			return ((AGET(l, b, idx) < AGET(r, b, idx)) ? -1 : 1);
-		idx++;
-	}
+	st_l = l->st_a.ptr;
+	st_r = r->st_a.ptr;
+	status = ft_memcmp(st_l, st_r, l->st_a.item_count * l->st_a.item_size);
+	if (status != 0)
+		return (status);
+	if (l->st_b.item_count != r->st_b.item_count)
+		return ((l->st_b.item_count < r->st_b.item_count) ? -1 : 1);
+	st_l = l->st_b.ptr;
+	st_r = r->st_b.ptr;
+	status = ft_memcmp(st_l, st_r, l->st_b.item_count * l->st_b.item_size);
+	if (status != 0)
+		return (status);
 	return (0);
 }
 

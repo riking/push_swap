@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 13:44:01 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 15:00:57 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int			opt_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 	kn_c = p_opcount(kn);
 	if (n_c >= kn_c)
 		return (PSUB_PRUNE);
-	ft_dprintf(2, "Found improvement. new=(op=%s, count=%ld) old=(op=%s, count=%ld)\n", op_name(n->prev_op), n_c, op_name(kn->prev_op), kn_c);
+	ft_dprintf(2, "Found improvement. new=(op=%3s, depth=%2d, count=%2ld) old=(op=%3s, depth=%2d, count=%2ld)\n", op_name(n->prev_op), n->opt_depth, n_c, op_name(kn->prev_op), kn->opt_depth, kn_c);
 	kn->prev_op = n->prev_op;
 	kn->prev = n->prev;
+	ft_ary_destroy(&kn->st->ops);
+	kn->st->ops = ft_ary_clone(n->st->ops, 1);
 	return (PSUB_PRUNE);
 }
 

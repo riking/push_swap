@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 13:57:12 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 15:06:17 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 ** This file takes a move sequence from a different solving method and runs it
 ** through the path solver to discover optimizations.
 */
+
+static void		debug_print_node(t_pnode *n)
+{
+	t_pnode		*cur;
+
+	cur = n;
+	ft_dprintf(2, "Printing node %p. depth=%d from_solved=%d\n", n, n->opt_depth, n->from_solved);
+	print_stack(n->st);
+	ft_dprintf(2, "[n] < ");
+	while (cur->prev)
+	{
+		ft_dprintf(2, "%s < ", op_name(cur->prev_op));
+		cur = cur->prev;
+	}
+	ft_dprintf(2, "[start]\n");
+}
+
 
 static void		submitsolution(t_psolver *g, t_array *ops, t_stack *sto)
 {
@@ -33,6 +50,7 @@ static void		submitsolution(t_psolver *g, t_array *ops, t_stack *sto)
 	{
 		n = p_newnode(pn, *(t_op*)ft_ary_get(ops, idx));
 		n->opt_depth = 0;
+		debug_print_node(n);
 		if (PSUB_PRUNE == p_submit(g, n, &opt_onmatch))
 		{
 			pn = p_findeq(g, n->st);
@@ -41,6 +59,8 @@ static void		submitsolution(t_psolver *g, t_array *ops, t_stack *sto)
 		else
 			pn = n;
 	}
+	ft_dprintf(2, "printing final parent node\n");
+	debug_print_node(pn);
 }
 
 static void		rundepth(t_psolver *g, int depth)
@@ -49,8 +69,8 @@ static void		rundepth(t_psolver *g, int depth)
 
 	while (g->workqueue.item_count > 0)
 	{
-		p = *(t_pnode**)ft_ary_get(&g->workqueue, 0);
-		ft_ary_remove(&g->workqueue, 0);
+		p = *(t_pnode**)ft_ary_get(&g->workqueue, g->workqueue.item_count - 1);
+		ft_ary_poplast(&g->workqueue);
 		if (p->opt_depth < depth)
 			p_step(g, p, &opt_onmatch);
 	}
@@ -101,14 +121,17 @@ t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted)
 	g.solved_left = 0;
 	g.solved_right = 0;
 	submitsolution(&g, &ops, st);
+	n = p_findeq(&g, sorted);
+	debug_print_node(n);
 	rundepth(&g, 5);
 	n = p_findeq(&g, sorted);
 	g.solved_left = n;
+	debug_print_node(n);
+	ft_dprintf(2, "find(sorted) = (op=%s, depth=%d, ops=%ld)\n", op_name(n->prev_op), n->opt_depth, p_opcount(n));
 	pn = ft_memalloc(sizeof(t_pnode));
 	pn->st = stack_clone(sorted);
 	pn->from_solved = true;
 	g.solved_right = pn;
-	debug_print_solution(&g);
 	solve = p_solution(&g);
 	p_free(&g);
 	ft_ary_destroy(&ops);

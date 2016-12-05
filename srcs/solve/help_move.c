@@ -6,11 +6,12 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:11:46 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:46:42 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "help_best.h"
+#include <stdlib.h>
 
 #define MDO_ADD 1
 #define MDO_SKIP 2
@@ -18,6 +19,14 @@
 static void	undoidx(t_hsolver *g, t_op insert, size_t count)
 {
 	t_array	holding;
+
+	if (count != 1)
+		abort();
+
+	stack_undo(g->st);
+	if (insert != OP_INVALID)
+		stack_do(g->st, insert);
+	return ;
 
 	holding = ft_ary_create(sizeof(t_op));
 	ft_ary_grow(&holding, count);

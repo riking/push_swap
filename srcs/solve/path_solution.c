@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 22:11:22 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 22:24:39 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 13:56:26 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	collect(t_array *ops, t_pnode *n)
 
 	while (n->prev)
 	{
-		op = *(t_op*)ft_ary_get(&n->st->ops, n->st->ops.item_count - 1);
+		op = n->prev_op;
 		if (n->from_solved)
 			op = op_inverse(op);
 		if (n->from_solved)

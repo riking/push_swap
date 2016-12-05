@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:10:39 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 22:07:29 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 14:02:46 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,21 @@ uint32_t	stack_hash(t_stack *st)
 	}
 	return (mixhash(hash));
 }
+
+bool		is_sorted(t_stack *st)
+{
+	size_t	idx;
+	int		last;
+
+	last = AGET(st, a, 0);
+	idx = 1;
+	while (idx < st->st_a.item_count)
+	{
+		if (last < AGET(st, a, idx))
+			return (false);
+		last = AGET(st, a, idx);
+		idx++;
+	}
+	return (true);
+}
+

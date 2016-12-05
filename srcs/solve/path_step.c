@@ -6,29 +6,43 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 16:31:34 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 13:44:01 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "path.h"
 #include <ft_printf.h>
 
-static int	p_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
+#include <stdlib.h>
+
+int			opt_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
+{
+	size_t	n_c;
+	size_t	kn_c;
+
+	(void)g;
+	if (n->from_solved || kn->from_solved)
+		exit(5);
+	n_c = p_opcount(n);
+	kn_c = p_opcount(kn);
+	if (n_c >= kn_c)
+		return (PSUB_PRUNE);
+	ft_dprintf(2, "Found improvement. new=(op=%s, count=%ld) old=(op=%s, count=%ld)\n", op_name(n->prev_op), n_c, op_name(kn->prev_op), kn_c);
+	kn->prev_op = n->prev_op;
+	kn->prev = n->prev;
+	return (PSUB_PRUNE);
+}
+
+int			path_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 {
 	if (kn->from_solved == n->from_solved)
 	{
-		if (n->st->ops.item_count < kn->st->ops.item_count)
-		{
-			ft_dprintf(2, "Found replacement\n");
-			kn->prev = n->prev;
-			ft_ary_destroy(&kn->st->ops);
-			kn->st->ops = ft_ary_clone(n->st->ops, 0);
-		}
 		return (PSUB_PRUNE);
 	}
+	ft_dprintf(2, "Found solution. left=(ops=%ld depth=%d) right=(ops=%ld depth=%d)\n", kn->st->ops.item_count, kn->opt_depth, n->st->ops.item_count, n->opt_depth);
 	g->solved_left = kn;
-	p_freenode(g->solved_right);
 	g->solved_right = n;
+	debug_print_solution(g);
 	return (PSUB_MATCH);
 }
 
@@ -53,16 +67,14 @@ t_pnode		*p_findeq(t_psolver *g, t_stack *st)
 	return (NULL);
 }
 
-int			p_submit(t_psolver *g, t_pnode *n)
+int			p_submit(t_psolver *g, t_pnode *n, t_matchfunc f)
 {
 	t_array		*bucket;
 	t_pnode		*kn;
 
 	kn = p_findeq(g, n->st);
 	if (kn != NULL)
-	{
-		return (p_onmatch(g, n, kn));
-	}
+		return (f(g, n, kn));
 	bucket = (t_array*)ft_ary_get(&g->hashtable,
 			stack_hash(n->st) % HASH_BUCKETS);
 	ft_ary_append(bucket, &n);
@@ -70,9 +82,8 @@ int			p_submit(t_psolver *g, t_pnode *n)
 	return (PSUB_OKAY);
 }
 
-int			p_step(t_psolver *g, t_pnode *n)
+int			p_step(t_psolver *g, t_pnode *n, t_matchfunc f)
 {
-	t_stack	*st;
 	t_pnode	*nn;
 	t_op	op;
 	int		r;
@@ -80,19 +91,14 @@ int			p_step(t_psolver *g, t_pnode *n)
 	op = OP_INVALID;
 	while (++op < OP_STOPITER)
 	{
-		st = stack_clone(n->st);
-		stack_do(st, op);
-		if (0 != stack_cmp(st, n->st))
-		{
-			nn = p_newnode(n, st);
-			r = p_submit(g, nn);
-			if (r == PSUB_PRUNE)
-				p_freenode(nn);
-			else if (r == PSUB_MATCH)
-				return (PSUB_MATCH);
-		}
-		else
-			stack_free(st);
+		nn = p_newnode(n, op);
+		if (!nn)
+			return (PSUB_ERROR);
+		r = p_submit(g, nn, f);
+		if (r == PSUB_PRUNE)
+			p_freenode(nn);
+		else if (r == PSUB_MATCH)
+			return (PSUB_MATCH);
 	}
 	return (PSUB_OKAY);
 }

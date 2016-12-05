@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:18:17 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:05:06 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 13:51:51 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static int		add_initial(t_psolver *g, t_stack *st, t_stack *sorted)
 	t_pnode		*p;
 
 	p = ft_memalloc(sizeof(t_pnode));
-	p->st = st;
-	p_submit(g, p);
+	p->st = stack_clone(st);
+	p_submit(g, p, NULL);
 	p = ft_memalloc(sizeof(t_pnode));
-	p->st = sorted;
+	p->st = stack_clone(sorted);
 	p->from_solved = true;
-	return (p_submit(g, p));
+	return (p_submit(g, p, &path_onmatch));
 }
 
 t_array			p_do_solve(t_stack *st, t_stack *sorted)
@@ -71,12 +71,13 @@ t_array			p_do_solve(t_stack *st, t_stack *sorted)
 	t_array		solve;
 
 	p_setup(&g);
+	g.start = st;
 	status = add_initial(&g, st, sorted);
 	while (status != PSUB_MATCH && status != PSUB_ERROR)
 	{
 		p = *(t_pnode**)ft_ary_get(&g.workqueue, 0);
 		ft_ary_remove(&g.workqueue, 0);
-		status = p_step(&g, p);
+		status = p_step(&g, p, &path_onmatch);
 	}
 	solve = p_solution(&g);
 	p_free(&g);

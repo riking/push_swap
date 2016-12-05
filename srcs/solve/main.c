@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:38:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:09:23 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 13:53:58 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ int			main(int argc, char **argv)
 	ft_ary_sort(&sorted->st_a, &cmp_int, NULL);
 	//ops = p_do_solve(st, sorted);
 	ops = help_sort(st, sorted);
+	ops = p_optimize(ops, st, sorted);
 	idx = 0;
 	while (idx < ops.item_count)
 		ft_printf("%s\n", op_name(*(t_op*)ft_ary_get(&ops, idx++)));
+	stack_free(st);
+	stack_free(sorted);
 	ft_ary_destroy(&ops);
 }

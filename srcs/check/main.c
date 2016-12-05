@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:10:53 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 16:46:32 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/05 14:04:18 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 #include <libft.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-static int	is_sorted(t_stack *st)
-{
-	size_t	idx;
-	int		last;
-
-	last = AGET(st, a, 0);
-	idx = 1;
-	while (idx < st->st_a.item_count)
-	{
-		if (last < AGET(st, a, idx))
-			return (1);
-		last = AGET(st, a, idx);
-		idx++;
-	}
-	return (0);
-}
 
 static int	check(bool print, t_stack *st)
 {
@@ -57,7 +40,7 @@ static int	check(bool print, t_stack *st)
 		return (1);
 	if (st->st_a.item_count == 0)
 		return (0);
-	return (is_sorted(st));
+	return (is_sorted(st) ? 0 : 1);
 }
 
 static int	presult(int result)

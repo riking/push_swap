@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:12:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 17:08:20 by kyork            ###   ########.fr       */
+/*   Updated: 2016/11/28 17:15:13 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ t_array		help_sort(t_stack *st, t_stack *sorted)
 	while (bottomwrong < (ssize_t)st->st_a.item_count &&
 			h_getel(&g, H_MAIN, bottomwrong) == AGET(sorted, a, bottomwrong))
 		bottomwrong++;
-	stack_free(sorted);
 	h_main_to_help_best_start(&g, H_PUSH, H_ROLL, bottomwrong);
 	h_push_to_main(&g, H_PUSH, -1);
 	h_move_to_main(&g, H_ROLL, H_PUSH, -1);
 	ops = ft_ary_clone(st->ops, 0);
-	stack_free(st);
 	return (ops);
 }

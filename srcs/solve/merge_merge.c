@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 18:03:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:14:44 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:18:42 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ static int		check_combine(t_array *m, t_array *iter, t_side mside)
 	int		idx;
 
 	op = *(t_op*)ft_ary_get(m, 0);
-	idx = -1;
-	while (++idx < iter->item_count)
+	idx = 0;
+	while (idx < (int)iter->item_count)
+	{
 		if (OP_INVALID != merged_op(op, *(t_op*)ft_ary_get(iter, idx)))
-		{
 			return (1);
-		}
 		else if (m_is_locker(*(t_op*)ft_ary_get(iter, idx), !mside))
 			return (-1);
+		idx++;
+	}
 	return (0);
 }
 

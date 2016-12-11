@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:12:41 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:17:56 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 static void	undoidx(t_hsolver *g, t_op insert, size_t count)
 {
-	t_array	holding;
-
 	if (count != 1)
 		abort();
 	stack_undo(g->st);

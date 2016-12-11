@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:10:53 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:04:18 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:11:55 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	presult(int result)
 	return (result);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_stack		*st;
 	bool		print;

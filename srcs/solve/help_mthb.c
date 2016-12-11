@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 23:42:30 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 15:29:16 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:14:25 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static ssize_t	find_largest(t_hsolver *g, size_t offset, int64_t *maxp)
 	int64_t	max;
 	size_t	main_len;
 	int		el;
-   
+
 	idx = -1;
 	max = -1000000000LL;
 	main_len = h_getcount(g, H_MAIN);
@@ -34,7 +34,7 @@ static ssize_t	find_largest(t_hsolver *g, size_t offset, int64_t *maxp)
 		if (el >= max)
 		{
 			idx = offset;
-			max = el; 
+			max = el;
 		}
 		offset++;
 	}

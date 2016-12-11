@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 14:35:56 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/28 15:05:11 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:13:00 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		h_push_to_help(t_hsolver *g, int src, int dst, int count)
 void		h_help_to_help(t_hsolver *g, int src, int dst, int count)
 {
 	ssize_t		src_len;
-	int			base_el;	
+	int			base_el;
 	ssize_t		base_idx;
 
 	src_len = h_getcount(g, src);

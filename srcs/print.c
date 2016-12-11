@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:48:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/11/27 22:32:17 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:08:21 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void				print_stack(t_stack *st)
 			ft_dprintf(2, "%*s %s%*d" RESET "\n", width, "",
 					color(AGET(st, b, idx)), width, AGET(st, b, idx));
 		else if (idx >= st->st_b.item_count)
-			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(AGET(st, a, idx)), width,
-					AGET(st, a, idx), width, "");
+			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(AGET(st, a, idx)),
+					width, AGET(st, a, idx), width, "");
 		else
 			ft_dprintf(2, "%s%*d" RESET" %s%*d" RESET "\n", color(AGET(st, a,
 					idx)), width, AGET(st, a, idx), color(AGET(st, b, idx)),

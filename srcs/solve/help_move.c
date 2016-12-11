@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 13:05:57 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:31:11 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:12:41 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,10 @@ static void	undoidx(t_hsolver *g, t_op insert, size_t count)
 
 	if (count != 1)
 		abort();
-
 	stack_undo(g->st);
 	if (insert != OP_INVALID)
 		stack_do(g->st, insert);
 	return ;
-
-	holding = ft_ary_create(sizeof(t_op));
-	ft_ary_grow(&holding, count);
-	while (count-- > 0)
-	{
-		ft_ary_append(&holding, ft_ary_get(&g->st->ops, g->st->ops.item_count - 1));
-		stack_undo(g->st);
-	}
-	if (insert != OP_INVALID)
-		stack_do(g->st, insert);
-	ft_ary_poplast(&holding);
-	while (holding.item_count > 0)
-	{
-		insert = *(t_op*)ft_ary_get(&holding, holding.item_count - 1);
-		stack_do(g->st, insert);
-		ft_ary_poplast(&holding);
-	}
-	ft_ary_destroy(&holding);
 }
 
 static int	h_move_rollcombine(t_hsolver *g, t_op cur, t_op op, size_t count)

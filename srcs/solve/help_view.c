@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 14:21:58 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:30:18 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:10:46 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ ssize_t		h_getcount(t_hsolver *g, int which)
 		return (g->hrollidx);
 	if (which == H_PUSH)
 	{
-		if (g->hpushidx != (ssize_t)g->st->st_b.item_count)
-			abort();// norm
 		return (g->hpushidx);
 	}
 	return (g->st->st_a.item_count - g->hrollidx);

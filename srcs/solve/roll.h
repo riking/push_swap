@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 14:04:47 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 16:46:23 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:10:11 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_rsolver {
 	int			rollidx;
 }				t_rsolver;
 
-t_array		roll_solve_b(t_stack *st, t_stack *sorted, int preroll);
-t_array		roll_solve(t_stack *st, t_stack *sorted);
+t_array			roll_solve_b(t_stack *st, t_stack *sorted, int preroll);
+t_array			roll_solve(t_stack *st, t_stack *sorted);
 
 #endif

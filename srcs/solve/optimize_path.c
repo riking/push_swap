@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 16:50:42 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:11:02 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void		debug_print_node(t_pnode *n)
 	}
 	ft_dprintf(2, "[start]\n");
 }
-
 
 static void		submitsolution(t_psolver *g, t_array *ops, t_stack *sto)
 {
@@ -101,7 +100,7 @@ void			debug_print_solution(t_psolver *g)
 	idx = 0;
 	while (idx < cur->st->ops.item_count)
 	{
-		stack_do(clone, op_inverse(*(t_op*)ft_ary_get(&cur->st->ops, cur->st->ops.item_count - 1 -idx)));
+		stack_do(clone, op_inverse(*(t_op*)ft_ary_get(&cur->st->ops, cur->st->ops.item_count - 1 - idx)));
 		ft_dprintf(2, " > %s", op_name(op_inverse(*(t_op*)ft_ary_get(&cur->st->ops, cur->st->ops.item_count - 1 - idx))));
 		idx++;
 	}
@@ -127,7 +126,6 @@ t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted)
 	n = p_findeq(&g, sorted);
 	g.solved_left = n;
 	debug_print_node(n);
-	ft_dprintf(2, "find(sorted) = (op=%s, depth=%d, ops=%ld)\n", op_name(n->prev_op), n->opt_depth, p_opcount(n));
 	pn = ft_memalloc(sizeof(t_pnode));
 	pn->st = stack_clone(sorted);
 	pn->from_solved = true;

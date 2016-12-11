@@ -6,7 +6,7 @@
 #    By: kyork <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 19:11:26 by kyork             #+#    #+#              #
-#    Updated: 2016/12/10 17:59:55 by kyork            ###   ########.fr        #
+#    Updated: 2016/12/10 18:50:15 by kyork            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SOLVESRC	+= main.c optimize_path.c
 SOLVESRC	+= path_step.c path_node.c path_solution.c path_solve.c
 SOLVESRC	+= help_mthb.c help_move.c help_view.c help_push.c help_sort.c
 SOLVESRC	+= smallsort.c smallsort_3.c smallsort_4.c
+SOLVESRC	+= merge_merge.c
 
 CHECKSRC	+= main.c parse.c
 

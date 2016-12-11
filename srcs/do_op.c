@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:27:11 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 16:57:57 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:09:52 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		move(t_array *src, int srcmode, t_array *dst, int dstmode)
 		ft_ary_insert(dst, &tmp, 0);
 }
 
-void	stack_do(t_stack *st, t_op op)
+void			stack_do(t_stack *st, t_op op)
 {
 	if (op == OP_SA || op == OP_SS)
 		swap_top(&st->st_a);
@@ -62,7 +62,7 @@ void	stack_do(t_stack *st, t_op op)
 	ft_ary_append(&st->ops, &op);
 }
 
-void	stack_undo(t_stack *st)
+void			stack_undo(t_stack *st)
 {
 	t_op	op;
 

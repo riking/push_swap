@@ -6,14 +6,14 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:26:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 17:19:27 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 19:15:08 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps_stack.h"
 #include <stdlib.h>
 
-t_op	op_inverse(t_op op)
+t_op		op_inverse(t_op op)
 {
 	if (op == OP_SA || op == OP_SB || op == OP_SS)
 		return (op);
@@ -28,7 +28,11 @@ t_op	op_inverse(t_op op)
 	return (OP_INVALID);
 }
 
-t_op	op_on(t_op op, t_side stack)
+/*
+** note: doesn't really make sense for PA/PB
+*/
+
+t_op		op_on(t_op op, t_side stack)
 {
 	if (op == OP_SA || op == OP_SB || op == OP_SS)
 		return (stack == ST_A ? OP_SA : OP_SB);

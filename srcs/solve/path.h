@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:28:58 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 15:49:12 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 18:58:39 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_pnode			*p_findeq(t_psolver *g, t_stack *st);
 size_t			p_opcount(t_pnode *n);
 
 t_array			p_solution(t_psolver *g);
-const char		*op_name(t_op op);
 
 void			p_setup(t_psolver *g);
 void			p_free(t_psolver *g);

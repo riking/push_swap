@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:35:55 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 17:20:26 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 18:58:50 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_op			op_inverse(t_op op);
 ** op_on returns the parameter operation scoped to only the A or B stack
 */
 t_op			op_on(t_op op, t_side whichstack);
+const char		*op_name(t_op op);
 
 /*
 ** stack_get returns the idx item of the whichstack stack

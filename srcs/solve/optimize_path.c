@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 22:20:31 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 01:01:13 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void		submitsolution(t_psolver *g, t_array *ops, t_stack *sto)
 	{
 		n = p_newnode(pn, *(t_op*)ft_ary_get(ops, idx));
 		n->opt_depth = 0;
-		debug_print_node(n);
 		if (PSUB_PRUNE == p_submit(g, n, &opt_onmatch))
 		{
 			pn = p_findeq(g, n->st);

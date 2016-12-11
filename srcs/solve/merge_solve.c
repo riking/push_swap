@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 19:20:32 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/11 00:50:42 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 00:57:48 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_array			merge_recurse(t_sortreq req, int variation)
 	if (!m_is_sorted(req))
 		abort();
 	req.st = tmp;
-	ops[2] = p_optimize(ops[2], req.st, st, 2);
+	ops[2] = p_optimize(ops[2], req.st, st, 1);
 	stack_free(st);
 	ft_ary_destroy(&ops[0]);
 	ft_ary_destroy(&ops[1]);

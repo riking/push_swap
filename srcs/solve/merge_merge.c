@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 20:14:33 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/11 00:45:47 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 00:58:31 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 
 static void	merge_do(t_op op, t_array *ops, t_stack *st, int *dec)
 {
-	ft_dprintf(2, "[merge_merge] %s\n", op_name(op));
 	ft_ary_append(ops, &op);
 	stack_do(st, op);
 	if (dec)
 		*dec -= 1;
-	print_stack(st);
 }
 
 void		merge_merge(t_sortreq req, t_array *ops, t_stack *st, int rolls)

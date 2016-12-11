@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 17:23:31 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 17:46:54 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 21:41:55 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_array				small_sort3(t_sortreq req)
 	values[1] = stack_get(req.st, req.sd, -2);
 	values[2] = stack_get(req.st, req.sd, -3);
 	a = ft_ary_viewof(values, 3, sizeof(int));
-	ft_ary_sort(&a, &cmp_int, NULL);
+	ft_ary_sort(&a, &cmp_int, (req.inv) ? NULL : (void*)1);
 	vals_to_patt(req, values, pattern);
 	idx[0] = -1;
 	while (++idx[0] < ARRAYLEN(g_sort3_pattern))

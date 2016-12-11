@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:15:28 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:09:06 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 21:32:37 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct	s_sortreq {
 	t_side		sd;
 	bool		inv;
 }				t_sortreq;
+
+typedef struct	s_cmreq {
+	t_side		sd;
+	t_array		l;
+	t_array		r;
+}				t_cmreq;
 
 /*
 ** req_cmp compares two stack indices in the context of a sortreq
@@ -48,6 +54,10 @@ t_array			small_sort4(t_sortreq req);
 
 bool			m_is_locker(t_op op, t_side sd);
 t_op			merge_opcombine(t_array *left, t_array *right);
-void			merge_ops(t_sortreq req, t_array left, t_array right);
+void			m_skip_lockers(t_array *ops, t_stack *st, t_array *pops,
+					t_side sd);
+void			merge_merge(t_sortreq req, t_array *ops, t_stack *st);
+t_array			merge_recurse(t_sortreq req);
+t_array			merge_sort(t_stack *st, t_stack *sorted);
 
 #endif

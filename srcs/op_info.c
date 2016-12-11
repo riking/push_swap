@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:26:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:15:08 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 21:33:41 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_op		op_on(t_op op, t_side stack)
 	if (op == OP_SA || op == OP_SB || op == OP_SS)
 		return (stack == ST_A ? OP_SA : OP_SB);
 	if (op == OP_PA || op == OP_PB)
-		return (stack == ST_A ? OP_PA : OP_PB);
+		return (stack == ST_A ? op : op_inverse(op));
 	if (op == OP_RA || op == OP_RB || op == OP_RR)
 		return (stack == ST_A ? OP_RA : OP_RB);
 	if (op == OP_RRA || op == OP_RRB || op == OP_RRR)
@@ -64,17 +64,18 @@ bool		is_sorted(t_stack *st)
 
 int			cmp_int(void *left, void *right, size_t size, void *data)
 {
-	int		*a;
-	int		*b;
+	int			*a;
+	int			*b;
+	uintptr_t	inverse;
 
 	if (size != sizeof(int))
 		exit(3);
 	a = left;
 	b = right;
-	(void)data;
+	inverse = (uintptr_t)data;
 	if (*a < *b)
-		return (1);
+		return (inverse ? -1 : 1);
 	if (*a > *b)
-		return (-1);
+		return (inverse ? 1 : -1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 18:01:37 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 20:21:07 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int			p_step(t_psolver *g, t_pnode *n, t_matchfunc f)
 	op = OP_INVALID;
 	while (++op < OP_STOPITER)
 	{
+		if (op == OP_PB)
+			continue; // REMOVE THIS
 		nn = p_newnode(n, op);
 		if (!nn)
 			return (PSUB_ERROR);

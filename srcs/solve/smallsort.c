@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:35:03 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 18:00:36 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 21:40:10 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void					vals_to_patt(t_sortreq req, int *values, int *pattern)
 	{
 		idx[1] = -1;
 		while (++idx[1] < req.size)
-			if (values[idx[0]] == stack_get(req.st, req.sd, -idx[1]))
-				pattern[idx[0]] = idx[1];
+			if (values[idx[1]] == stack_get(req.st, req.sd, -(1 + idx[0])))
+				pattern[idx[0]] = idx[1] + 1;
 	}
 }
 

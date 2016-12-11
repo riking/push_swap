@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 17:23:31 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 21:50:27 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 23:32:48 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static const t_op	g_sort4_ops[] = {
 	OP_IV, OP_IV, OP_IV, OP_IV,
 	OP_RA, OP_SA, OP_RA, OP_SA, OP_RRA, OP_RRA, OP_IV, OP_IV,
 	OP_IV, OP_IV, OP_IV, OP_IV,
-	OP_RA, OP_SA, OP_RA, OP_SA, OP_RRA, OP_SA, OP_IV, OP_IV,
+	OP_RA, OP_SA, OP_RA, OP_SA, OP_RRA, OP_RRA, OP_SA, OP_IV,
 	OP_IV, OP_IV, OP_IV, OP_IV,
 	OP_RA, OP_SA, OP_RA, OP_SA, OP_RRA, OP_SA, OP_RRA, OP_IV,
 	OP_IV, OP_IV, OP_IV, OP_IV,
@@ -82,7 +82,7 @@ static const int	g_sort4_ops_len[] = {
 	7,
 	8,
 	6,
-	6,
+	7,
 	7,
 	8,
 	10,

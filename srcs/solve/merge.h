@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:15:28 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 21:32:37 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 00:44:59 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_cmreq {
 ** if called with stack_get() -1, -2 then a negative return == sorted
 */
 int				req_cmp(t_sortreq req, int idx1, int idx2);
+int				req_cmp2(t_sortreq req, int val1, int val2);
 
 void			vals_to_patt(t_sortreq req, int *values, int *pattern);
 
@@ -56,8 +57,15 @@ bool			m_is_locker(t_op op, t_side sd);
 t_op			merge_opcombine(t_array *left, t_array *right);
 void			m_skip_lockers(t_array *ops, t_stack *st, t_array *pops,
 					t_side sd);
-void			merge_merge(t_sortreq req, t_array *ops, t_stack *st);
-t_array			merge_recurse(t_sortreq req);
-t_array			merge_sort(t_stack *st, t_stack *sorted);
+void			merge_combine(t_cmreq req, t_stack *st, t_array *ops);
+void			merge_merge(t_sortreq req, t_array *ops, t_stack *st,
+					int rolls);
+t_array			merge_recurse(t_sortreq req, int variation);
+
+/*
+** pick_sort selects between small_sort and merge_sort
+*/
+t_array			pick_sort(t_sortreq req);
+t_array			picked_sort(t_stack *st, t_stack *sorted);
 
 #endif

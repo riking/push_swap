@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:11:02 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 22:20:31 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void			debug_print_solution(t_psolver *g)
 	print_stack(clone);
 }
 
-t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted)
+t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted, int depth)
 {
 	t_psolver	g;
 	t_pnode		*pn;
@@ -122,7 +122,7 @@ t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted)
 	submitsolution(&g, &ops, st);
 	n = p_findeq(&g, sorted);
 	debug_print_node(n);
-	rundepth(&g, 7);
+	rundepth(&g, depth);
 	n = p_findeq(&g, sorted);
 	g.solved_left = n;
 	debug_print_node(n);

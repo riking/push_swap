@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 18:03:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 21:53:00 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 22:42:09 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			m_skip_lockers(t_array *ops, t_stack *st, t_array *pops,
 	push = 0;
 	roll = 0;
 	op = OP_INVALID;
-	while (op == OP_INVALID || (push != 0 && roll != 0))
+	while (op == OP_INVALID || push != 0 || roll != 0)
 	{
 		if (pops->item_count == 0)
 			abort();// NORM
@@ -122,10 +122,12 @@ void			m_skip_lockers(t_array *ops, t_stack *st, t_array *pops,
 		stack_do(st, op);
 		if (op == OP_PA || op == OP_PB)
 			push += ((sd == ST_A) == (op == OP_PB)) ? 1 : -1;
+		/*
 		else if (op == OP_RR || op == ((sd == ST_A) ? OP_RB : OP_RA))
 			roll += 1;
 		else if (op == OP_RRR || op == ((sd == ST_A) ? OP_RRB : OP_RRA))
 			roll -= 1;
+			*/
 		*(t_op**)&(pops->ptr) += 1;
 		pops->item_count -= 1;
 	}

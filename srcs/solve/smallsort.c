@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:35:03 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 21:40:10 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 22:00:29 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int						req_cmp(t_sortreq req, int idx1, int idx2)
 
 	val1 = stack_get(req.st, req.sd, idx1);
 	val2 = stack_get(req.st, req.sd, idx2);
+	return (req_cmp2(req, val1, val2));
+}
+
+int						req_cmp2(t_sortreq req, int val1, int val2)
+{
 	if (val1 < val2)
 		return (req.inv ? 1 : -1);
 	else if (val1 > val2)

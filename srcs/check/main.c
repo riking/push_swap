@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:10:53 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:11:55 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 00:53:36 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int			main(int argc, char **argv)
 		return (2);
 	}
 	ret = presult(check(print, st));
+	ft_dprintf(2, "[!!] op_count = %ld\n", st->ops.item_count);
 	stack_free(st);
 	return (ret);
 }

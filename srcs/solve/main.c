@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:38:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 20:36:13 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 00:21:51 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,17 @@ int			main(int argc, char **argv)
 	st2 = stack_clone(st);
 	//ops = p_do_solve(st2, sorted);
 	//ops = help_sort(st2, sorted);
-	ops = merge_sort(st2, sorted);
+	ops = picked_sort(st2, sorted);
 	stack_free(st2);
 
-	/*
 	ft_dprintf(2, "before optimization:\n");
 	idx = 0;
 	while (idx < ops.item_count)
 		ft_dprintf(2, "%s ", op_name(*(t_op*)ft_ary_get(&ops, idx++)));
 	ft_dprintf(2, "\n");
 	st2 = stack_clone(st);
-	ops = p_optimize(ops, st2, sorted);
+	ops = p_optimize(ops, st2, sorted, 2);
 	stack_free(st2);
-	*/
 
 	idx = 0;
 	while (idx < ops.item_count)

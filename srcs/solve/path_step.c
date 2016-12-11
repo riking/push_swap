@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 20:21:07 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 22:45:10 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			opt_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 	kn_c = p_opcount(kn);
 	if (n_c >= kn_c)
 		return (PSUB_PRUNE);
+	if (kn->opt_depth == 0)
 	ft_dprintf(2, "Found improvement. new=(op=%3s, depth=%2d, count=%2ld) old=(op=%3s, depth=%2d, count=%2ld)\n", op_name(n->prev_op), n->opt_depth, n_c, op_name(kn->prev_op), kn->opt_depth, kn_c);
 	kn->prev_op = n->prev_op;
 	kn->prev = n->prev;

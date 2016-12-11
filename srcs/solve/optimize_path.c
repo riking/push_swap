@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/11 01:01:13 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/11 01:15:49 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			debug_print_solution(t_psolver *g)
 	}
 	ft_dprintf(2, "\n");
 	print_stack(clone);
+	stack_free(clone);
 }
 
 t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted, int depth)
@@ -119,12 +120,11 @@ t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted, int depth)
 	g.solved_left = 0;
 	g.solved_right = 0;
 	submitsolution(&g, &ops, st);
-	n = p_findeq(&g, sorted);
-	debug_print_node(n);
 	rundepth(&g, depth);
 	n = p_findeq(&g, sorted);
 	g.solved_left = n;
 	debug_print_node(n);
+	p_freenode(g.solved_right);
 	pn = ft_memalloc(sizeof(t_pnode));
 	pn->st = stack_clone(sorted);
 	pn->from_solved = true;

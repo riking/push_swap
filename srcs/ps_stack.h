@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:35:55 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:20:06 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 17:20:26 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ typedef enum	e_ops {
 
 # define OP_LAST OP_RRR
 
+typedef bool	t_side;
+
+# define ST_A (t_side)false
+# define ST_B (t_side)true
+
 typedef struct	s_stack {
 	t_array		st_a;
 	t_array		st_b;
@@ -52,7 +57,22 @@ typedef struct	s_stack {
 ** ops: t_array<t_op>
 */
 
+/*
+** op_inverse returns the operation needed to undo the given op
+*/
 t_op			op_inverse(t_op op);
+
+/*
+** op_on returns the parameter operation scoped to only the A or B stack
+*/
+t_op			op_on(t_op op, t_side whichstack);
+
+/*
+** stack_get returns the idx item of the whichstack stack
+** if idx is negative, counts from the top
+** if idx is positive, counts from the bottom
+*/
+int				stack_get(t_stack *st, t_side whichstack, int idx);
 
 void			stack_do(t_stack *st, t_op op);
 void			stack_undo(t_stack *st);
@@ -63,8 +83,14 @@ int				stack_cmp(t_stack *s1, t_stack *s2);
 uint32_t		stack_hash(t_stack *st);
 bool			is_sorted(t_stack *st);
 
+/*
+** mixhash: mixes the bits of a hash so they are evenly spread
+** print_stack: prints the stack to stderr
+** cmp_int: for use with ft_ary_sort on stack arrays
+*/
 uint32_t		mixhash(uint32_t hash);
 void			print_stack(t_stack *st);
+int				cmp_int(void *left, void *right, size_t size, void *data);
 
 t_stack			*read_input(int argc, char **argv);
 

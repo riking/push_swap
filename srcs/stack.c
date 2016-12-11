@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:10:39 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 15:22:33 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 17:10:55 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ t_stack		*stack_clone(t_stack *s)
 	st->st_b = ft_ary_clone(s->st_b, size);
 	st->ops = ft_ary_clone(s->ops, 4);
 	return (st);
+}
+
+int			stack_get(t_stack *st, t_side w, int idx)
+{
+	t_array	*a;
+
+	if (w == ST_A)
+		a = &st->st_a;
+	else
+		a = &st->st_b;
+	while (idx < 0)
+		idx += a->item_count;
+	while (idx >= (int)a->item_count)
+		idx -= a->item_count;
+	return (*(int*)ft_ary_get(a, idx));
 }
 
 int			stack_cmp(t_stack *l, t_stack *r)
@@ -83,21 +98,3 @@ uint32_t	stack_hash(t_stack *st)
 	}
 	return (mixhash(hash));
 }
-
-bool		is_sorted(t_stack *st)
-{
-	size_t	idx;
-	int		last;
-
-	last = AGET(st, a, 0);
-	idx = 1;
-	while (idx < st->st_a.item_count)
-	{
-		if (last < AGET(st, a, idx))
-			return (false);
-		last = AGET(st, a, idx);
-		idx++;
-	}
-	return (true);
-}
-

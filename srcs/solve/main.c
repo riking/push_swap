@@ -6,32 +6,16 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 21:38:43 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 14:54:46 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/10 17:18:50 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ps_stack.h"
 #include "path.h"
 #include "help_best.h"
+#include "roll.h"
 #include <ft_printf.h>
 #include <stdlib.h>
-
-static int	cmp_int(void *left, void *right, size_t size, void *data)
-{
-	int		*a;
-	int		*b;
-
-	if (size != sizeof(int))
-		exit(3);
-	a = left;
-	b = right;
-	(void)data;
-	if (*a < *b)
-		return (1);
-	if (*a > *b)
-		return (-1);
-	return (0);
-}
 
 int			main(int argc, char **argv)
 {
@@ -50,10 +34,13 @@ int			main(int argc, char **argv)
 	print_stack(st);
 	sorted = stack_clone(st);
 	ft_ary_sort(&sorted->st_a, &cmp_int, NULL);
+
 	st2 = stack_clone(st);
-	//ops = p_do_solve(st, sorted);
-	ops = help_sort(st2, sorted);
+	ops = p_do_solve(st, sorted);
+	//ops = help_sort(st2, sorted);
+	//ops = roll_solve(st2, sorted);
 	stack_free(st2);
+
 	ft_dprintf(2, "before optimization:\n");
 	idx = 0;
 	while (idx < ops.item_count)
@@ -62,6 +49,7 @@ int			main(int argc, char **argv)
 	st2 = stack_clone(st);
 	ops = p_optimize(ops, st2, sorted);
 	stack_free(st2);
+
 	idx = 0;
 	while (idx < ops.item_count)
 		ft_printf("%s\n", op_name(*(t_op*)ft_ary_get(&ops, idx++)));

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 19:20:32 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/12 15:09:24 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/12 15:11:00 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,10 @@ static bool		m_is_sorted(t_sortreq req)
 static int		prep_recurse(t_sortreq req, t_stack *st, t_array *opsary)
 {
 	int		idx;
-	int		can_r;
-	t_array	tmp;
 
 	idx = req.size / 2;
-	tmp = ((req.sd == ST_A) ? st->st_a : st->st_b);
-	can_r = (int)tmp.item_count == req.size;
-	tmp = ft_ary_viewof(((t_op*)tmp.ptr) + tmp.item_count - req.size,
-			req.size, sizeof(t_op));
-	tmp = ft_ary_clone(tmp, 1);
-	ft_ary_sort(&tmp, &cmp_int, (req.inv) ? (void*)1 : NULL);
-	can_r = 0;
-	while (idx > 0)
-		if (can_r && req_cmp2(req, stack_get(st, req.sd, -1),
-					RGET(&tmp, req.size / 4)) > 0)
-			merge_do(&opsary[2], st, op_on(OP_RA, req.sd));
-		else
-		{
-			merge_do(&opsary[2], st, op_on(OP_PB, req.sd));
-			idx--;
-		}
-	ft_ary_destroy(&tmp);
+	while (idx-- > 0)
+		merge_do(&opsary[2], st, op_on(OP_PB, req.sd));
 	opsary[0] = pick_sort((t_sortreq){st, req.size - (int)(req.size / 2),
 			req.sd, req.inv});
 	opsary[1] = pick_sort((t_sortreq){st, req.size / 2, !req.sd, !req.inv});

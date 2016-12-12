@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 22:11:22 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/05 13:56:26 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/12 15:29:25 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,4 @@ t_array		p_solution(t_psolver *g)
 	collect(&ops, g->solved_left);
 	collect(&ops, g->solved_right);
 	return (ops);
-}
-
-const char	*op_name(t_op op)
-{
-	if (op == OP_SA)
-		return ("sa");
-	if (op == OP_SB)
-		return ("sb");
-	if (op == OP_SS)
-		return ("ss");
-	if (op == OP_PA)
-		return ("pa");
-	if (op == OP_PB)
-		return ("pb");
-	if (op == OP_RA)
-		return ("ra");
-	if (op == OP_RB)
-		return ("rb");
-	if (op == OP_RR)
-		return ("rr");
-	if (op == OP_RRA)
-		return ("rra");
-	if (op == OP_RRB)
-		return ("rrb");
-	if (op == OP_RRR)
-		return ("rrr");
-	return ("(bad)");
 }

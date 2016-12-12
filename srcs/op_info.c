@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 16:26:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 21:33:41 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/12 15:29:34 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,31 @@ int			cmp_int(void *left, void *right, size_t size, void *data)
 	if (*a > *b)
 		return (inverse ? 1 : -1);
 	return (0);
+}
+
+const char	*op_name(t_op op)
+{
+	if (op == OP_SA)
+		return ("sa");
+	if (op == OP_SB)
+		return ("sb");
+	if (op == OP_SS)
+		return ("ss");
+	if (op == OP_PA)
+		return ("pa");
+	if (op == OP_PB)
+		return ("pb");
+	if (op == OP_RA)
+		return ("ra");
+	if (op == OP_RB)
+		return ("rb");
+	if (op == OP_RR)
+		return ("rr");
+	if (op == OP_RRA)
+		return ("rra");
+	if (op == OP_RRB)
+		return ("rrb");
+	if (op == OP_RRR)
+		return ("rrr");
+	return ("(bad)");
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "path.h"
-#include <ft_guard.h>
 #include <stdlib.h>
 
 t_pnode		*p_newnode(t_pnode *parent, t_op op)

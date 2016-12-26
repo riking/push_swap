@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "path.h"
-#include <ft_printf.h>
 
 static void	collect(t_array *ops, t_pnode *n)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "merge.h"
-#include <ft_printf.h>
 
 static void	merge_do(t_op op, t_array *ops, t_stack *st, int *dec)
 {

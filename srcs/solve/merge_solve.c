@@ -13,8 +13,6 @@
 #include "merge.h"
 #include "path.h"
 
-#include <ft_printf.h>
-
 static void		merge_do(t_array *ops, t_stack *st, t_op op)
 {
 	ft_ary_append(ops, &op);
@@ -56,20 +54,6 @@ static t_cmreq	make_cmreq(t_side sd, t_array *left, t_array *right)
 	return (req);
 }
 
-static bool		m_is_sorted(t_sortreq req)
-{
-	int			idx;
-
-	idx = 1;
-	while (idx < (int)req.size)
-	{
-		if (req_cmp(req, -idx, -idx - 1) >= 0)
-			return (false);
-		idx++;
-	}
-	return (true);
-}
-
 static int		prep_recurse(t_sortreq req, t_stack *st, t_array *opsary)
 {
 	int		idx;
@@ -82,8 +66,6 @@ static int		prep_recurse(t_sortreq req, t_stack *st, t_array *opsary)
 	opsary[1] = pick_sort((t_sortreq){st, req.size / 2, !req.sd, !req.inv});
 	return (0);
 }
-
-#include <stdlib.h>
 
 t_array			merge_recurse(t_sortreq req, int variation)
 {
@@ -99,11 +81,6 @@ t_array			merge_recurse(t_sortreq req, int variation)
 	merge_merge(req, &ops[2], st, rolls);
 	while (rolls-- > 0)
 		merge_do(&ops[2], st, op_on(OP_RRA, req.sd));
-	t_stack *tmp = req.st;
-	req.st = st;
-	if (!m_is_sorted(req))
-		abort();
-	req.st = tmp;
 	ops[2] = p_optimize(ops[2], req.st, st, 1);
 	stack_free(st);
 	ft_ary_destroy(&ops[0]);

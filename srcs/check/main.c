@@ -12,9 +12,7 @@
 
 #include "ps_check.h"
 #include <ft_printf.h>
-#include <libft.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 static int	check(bool print, t_stack *st)
 {

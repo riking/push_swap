@@ -48,17 +48,19 @@ ifdef RELEASE
 	LDFLAGS += -O2
 endif
 
+PRINTF  = $(shell which printf)
+
 .PHONY: all clean fclean re
 
 all: checker push_swap
 
 push_swap: $(COMMONOBJS) $(SOLVEOBJS) $(LIBS)
 	$(CC) $(LDFLAGS) -o $@ $^
-	@printf "\e[32m\e[1m[OK]\e[m $@\n"
+	@$(PRINTF) "\e[32m\e[1m[OK]\e[m $@\n"
 
 checker: $(COMMONOBJS) $(CHECKOBJS) $(LIBS)
 	$(CC) $(LDFLAGS) -o $@ $^
-	@printf "\e[32m\e[1m[OK]\e[m $@\n"
+	@$(PRINTF) "\e[32m\e[1m[OK]\e[m $@\n"
 
 libft/libft.a: libft/.git/refs/heads/master
 	$(MAKE) -C libft libft.a
@@ -69,12 +71,12 @@ libft/.git/refs/heads/master:
 clean:
 	rm -rf build
 	$(MAKE) -C libft clean
-	@printf "\e[33m\e[1m[CLEAN]\e[m $$(basename $$(pwd))\n"
+	@$(PRINTF) "\e[33m\e[1m[CLEAN]\e[m $$(basename $$(pwd))\n"
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C libft fclean
-	@printf "\e[33m\e[1m[FCLEAN]\e[m $$(basename $$(pwd))\n"
+	@$(PRINTF) "\e[33m\e[1m[FCLEAN]\e[m $$(basename $$(pwd))\n"
 
 re: fclean
 	$(MAKE) all

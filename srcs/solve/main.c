@@ -12,7 +12,6 @@
 
 #include "../ps_stack.h"
 #include "path.h"
-#include "help_best.h"
 #include "merge.h"
 #include <ft_printf.h>
 #include <stdlib.h>

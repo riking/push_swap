@@ -16,7 +16,6 @@ COMMONSRC	+= input.c do_op.c op_info.c print.c stack.c
 
 SOLVESRC	+= main.c optimize_path.c
 SOLVESRC	+= path_step.c path_node.c path_solution.c path_solve.c
-SOLVESRC	+= help_mthb.c help_move.c help_view.c help_push.c help_sort.c
 SOLVESRC	+= smallsort.c smallsort_3.c smallsort_4.c
 SOLVESRC	+= merge_opcombine.c merge_solve.c merge_merge.c
 SOLVESRC	+= pick_sort.c
@@ -34,7 +33,7 @@ CFLAGS		+= -Wall -Wextra -Wmissing-prototypes
 CFLAGS		+= -I includes/ -I srcs/
 LDFLAGS		+= -Wall -Wextra
 
-ifneq ($(WERROR), 0)
+ifndef NO_WERROR
 	CFLAGS += -Werror
 	LDFLAGS += -Werror
 endif

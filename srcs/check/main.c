@@ -6,15 +6,13 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:10:53 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/11 01:29:19 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:25:07 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps_check.h"
 #include <ft_printf.h>
-#include <libft.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <unistd.h>
 
 static int	g_print;
@@ -79,39 +77,12 @@ static int	on_opt(char opt)
 	return (0);
 }
 
-static int	parse_opts(char **argv)
-{
-	int		i;
-	int		ac;
-	int		opt_count;
-
-	ac = 1;
-	opt_count = 0;
-	while (argv[ac])
-		if (argv[ac][0] == '-')
-		{
-			if (argv[ac][1] == 0)
-				break ;
-			if (ft_atoi(argv[ac]) != 0)
-				break ;
-			opt_count++;
-			i = 0;
-			while (argv[ac][++i])
-				if (-1 == on_opt(argv[ac][i]))
-					return (-1);
-			ac++;
-		}
-		else
-			break ;
-	return (opt_count);
-}
-
 int			main(int argc, char **argv)
 {
 	t_stack		*st;
 	int			ret;
 
-	ret = parse_opts(argv);
+	ret = parse_opts(argv, &on_opt);
 	if (ret == -1)
 		ft_dprintf(2, "Error\n");
 	if (ret == -1)

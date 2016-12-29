@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:48:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 19:08:21 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/12 15:28:36 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static const char	*color(int val)
 {
 	int idx;
 
+	return ("");
 	idx = mixhash(val) % 216;
 	return (&COLORTAB[idx * COLORSTRIDE]);
 }
@@ -41,8 +42,9 @@ static const char	*color(int val)
 
 void				print_stack(t_stack *st)
 {
-	size_t	idx;
-	int		width;
+	size_t		idx;
+	int			width;
+	const char	*opname;
 
 	idx = 0;
 	width = 1;
@@ -54,15 +56,18 @@ void				print_stack(t_stack *st)
 	{
 		if (idx >= st->st_a.item_count)
 			ft_dprintf(2, "%*s %s%*d" RESET "\n", width, "",
-					color(AGET(st, b, idx)), width, AGET(st, b, idx));
+					color(stack_get(st, ST_B, -1-idx)), width, stack_get(st, ST_B, -1-idx));
 		else if (idx >= st->st_b.item_count)
-			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(AGET(st, a, idx)),
-					width, AGET(st, a, idx), width, "");
+			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(stack_get(st, ST_A, -1-idx)),
+					width, stack_get(st, ST_A, -1-idx), width, "");
 		else
-			ft_dprintf(2, "%s%*d" RESET" %s%*d" RESET "\n", color(AGET(st, a,
-					idx)), width, AGET(st, a, idx), color(AGET(st, b, idx)),
-					width, AGET(st, b, idx));
+			ft_dprintf(2, "%s%*d" RESET" %s%*d" RESET "\n", color(stack_get(st, ST_A,
+					-1-idx)), width, stack_get(st, ST_A, -1-idx), color(stack_get(st, ST_B, -1-idx)),
+					width, stack_get(st, ST_B, -1-idx));
 	}
 	ft_dprintf(2, "%.*s %.*s\n", width, "------------", width, "------------");
-	ft_dprintf(2, "%*s %*s\n", width, "a", width, "b");
+	opname = "";
+	if (st->ops.item_count)
+		opname = op_name(*(t_op*)ft_ary_get(&st->ops, st->ops.item_count - 1));
+	ft_dprintf(2, "%*s %*s | %s\n", width, "a", width, "b", opname);
 }

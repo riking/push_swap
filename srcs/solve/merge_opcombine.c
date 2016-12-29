@@ -12,9 +12,6 @@
 
 #include "merge.h"
 #include <stdlib.h>
-#include <ft_printf.h>
-
-#define EVEN(x) ((x) % 2 == 0)
 
 /*
 ** warning: mutates array.ptr, but that's okay since we take it by value
@@ -116,18 +113,12 @@ void			m_skip_lockers(t_array *ops, t_stack *st, t_array *pops,
 	while (op == OP_INVALID || push != 0 || roll != 0)
 	{
 		if (pops->item_count == 0)
-			abort();// NORM
+			exit(7);
 		op = *(t_op*)ft_ary_get(pops, 0);
 		ft_ary_append(ops, &op);
 		stack_do(st, op);
 		if (op == OP_PA || op == OP_PB)
 			push += ((sd == ST_A) == (op == OP_PB)) ? 1 : -1;
-		/*
-		else if (op == OP_RR || op == ((sd == ST_A) ? OP_RB : OP_RA))
-			roll += 1;
-		else if (op == OP_RRR || op == ((sd == ST_A) ? OP_RRB : OP_RRA))
-			roll -= 1;
-			*/
 		*(t_op**)&(pops->ptr) += 1;
 		pops->item_count -= 1;
 	}

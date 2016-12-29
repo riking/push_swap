@@ -6,7 +6,7 @@
 #    By: kyork <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/09 19:11:26 by kyork             #+#    #+#              #
-#    Updated: 2016/12/11 00:14:29 by kyork            ###   ########.fr        #
+#    Updated: 2016/12/29 14:32:18 by kyork            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,11 @@ COMMONSRC	+= input.c do_op.c op_info.c print.c stack.c
 
 SOLVESRC	+= main.c optimize_path.c
 SOLVESRC	+= path_step.c path_node.c path_solution.c path_solve.c
-SOLVESRC	+= help_mthb.c help_move.c help_view.c help_push.c help_sort.c
 SOLVESRC	+= smallsort.c smallsort_3.c smallsort_4.c
 SOLVESRC	+= merge_opcombine.c merge_solve.c merge_merge.c
 SOLVESRC	+= pick_sort.c
 
-CHECKSRC	+= main.c parse.c
+CHECKSRC	+= main.c parse.c opt.c
 
 COMMONOBJS	= $(addprefix build/common-, $(COMMONSRC:.c=.o))
 SOLVEOBJS	= $(addprefix build/solve-, $(SOLVESRC:.c=.o))
@@ -34,7 +33,7 @@ CFLAGS		+= -Wall -Wextra -Wmissing-prototypes
 CFLAGS		+= -I includes/ -I srcs/
 LDFLAGS		+= -Wall -Wextra
 
-ifneq ($(WERROR), 0)
+ifndef NO_WERROR
 	CFLAGS += -Werror
 	LDFLAGS += -Werror
 endif
@@ -49,17 +48,23 @@ ifdef RELEASE
 	LDFLAGS += -O2
 endif
 
+ifeq ($(SHELL),zsh)
+	PRINTF	= printf
+else
+	PRINTF  = $(shell which printf)
+endif
+
 .PHONY: all clean fclean re
 
 all: checker push_swap
 
 push_swap: $(COMMONOBJS) $(SOLVEOBJS) $(LIBS)
 	$(CC) $(LDFLAGS) -o $@ $^
-	@printf "\e[32m\e[1m[OK]\e[m $@\n"
+	@echo "\e[32m\e[1m[OK]\e[m $@\n" | tr '\\e' '\e'
 
 checker: $(COMMONOBJS) $(CHECKOBJS) $(LIBS)
 	$(CC) $(LDFLAGS) -o $@ $^
-	@printf "\e[32m\e[1m[OK]\e[m $@\n"
+	@echo "\e[32m\e[1m[OK]\e[m $@\n" | tr '\\e' '\e'
 
 libft/libft.a: libft/.git/refs/heads/master
 	$(MAKE) -C libft libft.a
@@ -70,12 +75,12 @@ libft/.git/refs/heads/master:
 clean:
 	rm -rf build
 	$(MAKE) -C libft clean
-	@printf "\e[33m\e[1m[CLEAN]\e[m $$(basename $$(pwd))\n"
+	@echo "\e[33m\e[1m[CLEAN]\e[m $$(basename $$(pwd))\n" | tr '\\e' '\e'
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C libft fclean
-	@printf "\e[33m\e[1m[FCLEAN]\e[m $$(basename $$(pwd))\n"
+	@echo "\e[33m\e[1m[FCLEAN]\e[m $$(basename $$(pwd))\n" | tr '\\e' '\e'
 
 re: fclean
 	$(MAKE) all

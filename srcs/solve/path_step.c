@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:48:42 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 22:45:10 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:54:16 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int			opt_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 	if (n_c >= kn_c)
 		return (PSUB_PRUNE);
 	if (kn->opt_depth == 0)
-	ft_dprintf(2, "Found improvement. new=(op=%3s, depth=%2d, count=%2ld) old=(op=%3s, depth=%2d, count=%2ld)\n", op_name(n->prev_op), n->opt_depth, n_c, op_name(kn->prev_op), kn->opt_depth, kn_c);
+		ft_dprintf(2, "Found improvement. new=(op=%3s, depth=%2d, count=%2ld)"
+			" old=(op=%3s, depth=%2d, count=%2ld)\n", op_name(n->prev_op),
+			n->opt_depth, n_c, op_name(kn->prev_op), kn->opt_depth, kn_c);
 	kn->prev_op = n->prev_op;
 	kn->prev = n->prev;
 	ft_ary_destroy(&kn->st->ops);
@@ -42,10 +44,11 @@ int			path_onmatch(t_psolver *g, t_pnode *n, t_pnode *kn)
 	{
 		return (PSUB_PRUNE);
 	}
-	ft_dprintf(2, "Found solution. left=(ops=%ld depth=%d) right=(ops=%ld depth=%d)\n", kn->st->ops.item_count, kn->opt_depth, n->st->ops.item_count, n->opt_depth);
+	ft_dprintf(2, "Found solution. left=(ops=%ld depth=%d) "
+			"right=(ops=%ld depth=%d)\n", kn->st->ops.item_count,
+			kn->opt_depth, n->st->ops.item_count, n->opt_depth);
 	g->solved_left = kn;
 	g->solved_right = n;
-	debug_print_solution(g);
 	return (PSUB_MATCH);
 }
 
@@ -94,8 +97,6 @@ int			p_step(t_psolver *g, t_pnode *n, t_matchfunc f)
 	op = OP_INVALID;
 	while (++op < OP_STOPITER)
 	{
-		if (op == OP_PB)
-			continue; // REMOVE THIS
 		nn = p_newnode(n, op);
 		if (!nn)
 			return (PSUB_ERROR);

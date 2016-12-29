@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:46:05 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/11 01:15:49 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:53:26 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void		debug_print_node(t_pnode *n)
 	t_pnode		*cur;
 
 	cur = n;
-	ft_dprintf(2, "Printing node %p. depth=%d from_solved=%d\n", n, n->opt_depth, n->from_solved);
+	ft_dprintf(2, "Printing node %p. depth=%d from_solved=%d\n", n,
+			n->opt_depth, n->from_solved);
 	print_stack(n->st);
 	ft_dprintf(2, "[n] < ");
 	while (cur->prev)
@@ -72,40 +73,6 @@ static void		rundepth(t_psolver *g, int depth)
 		if (p->opt_depth < depth)
 			p_step(g, p, &opt_onmatch);
 	}
-}
-
-void			debug_print_solution(t_psolver *g)
-{
-	t_pnode		*cur;
-	t_stack		*clone;
-	size_t		idx;
-
-	cur = (g->solved_left->from_solved) ? g->solved_right : g->solved_left;
-	idx = 0;
-	clone = stack_clone(g->start);
-	ft_dprintf(2, "Solution\n");
-	print_stack(clone);
-	ft_dprintf(2, "[start]");
-	while (idx < cur->st->ops.item_count)
-	{
-		stack_do(clone, *(t_op*)ft_ary_get(&cur->st->ops, idx));
-		ft_dprintf(2, " > %s", op_name(*(t_op*)ft_ary_get(&cur->st->ops, idx)));
-		idx++;
-	}
-	ft_dprintf(2, " [join]\n");
-	print_stack(clone);
-	ft_dprintf(2, "[join]");
-	cur = (g->solved_left->from_solved) ? g->solved_left : g->solved_right;
-	idx = 0;
-	while (idx < cur->st->ops.item_count)
-	{
-		stack_do(clone, op_inverse(*(t_op*)ft_ary_get(&cur->st->ops, cur->st->ops.item_count - 1 - idx)));
-		ft_dprintf(2, " > %s", op_name(op_inverse(*(t_op*)ft_ary_get(&cur->st->ops, cur->st->ops.item_count - 1 - idx))));
-		idx++;
-	}
-	ft_dprintf(2, "\n");
-	print_stack(clone);
-	stack_free(clone);
 }
 
 t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted, int depth)

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:48:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/12 15:28:36 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:49:19 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ static const char	*color(int val)
 }
 
 #define RESET "\033[m"
+#define IT_NONE (2LL << 34)
+
+static void			do_print(int width, long it_a, long it_b)
+{
+	if (it_a == IT_NONE)
+		ft_dprintf(2, "%*s %s%*d" RESET "\n", width, "",
+				color(it_b), width, (int)it_b);
+	else if (it_b == IT_NONE)
+		ft_dprintf(2, "%s%*d" RESET " %*s\n", color(it_a), width, (int)it_a,
+				width, "");
+	else
+		ft_dprintf(2, "%s%*d" RESET "%s%*d" RESET "\n", color(it_a), width,
+				(int)it_a, color(it_b), width, (int)it_b);
+}
 
 void				print_stack(t_stack *st)
 {
@@ -55,15 +69,12 @@ void				print_stack(t_stack *st)
 	while (idx-- > 0)
 	{
 		if (idx >= st->st_a.item_count)
-			ft_dprintf(2, "%*s %s%*d" RESET "\n", width, "",
-					color(stack_get(st, ST_B, -1-idx)), width, stack_get(st, ST_B, -1-idx));
+			do_print(width, IT_NONE, stack_get(st, ST_B, -1 - idx));
 		else if (idx >= st->st_b.item_count)
-			ft_dprintf(2, "%s%*d" RESET " %*s\n", color(stack_get(st, ST_A, -1-idx)),
-					width, stack_get(st, ST_A, -1-idx), width, "");
+			do_print(width, stack_get(st, ST_A, -1 - idx), IT_NONE);
 		else
-			ft_dprintf(2, "%s%*d" RESET" %s%*d" RESET "\n", color(stack_get(st, ST_A,
-					-1-idx)), width, stack_get(st, ST_A, -1-idx), color(stack_get(st, ST_B, -1-idx)),
-					width, stack_get(st, ST_B, -1-idx));
+			do_print(width, stack_get(st, ST_A, -1 - idx),
+					stack_get(st, ST_B, -1 - idx));
 	}
 	ft_dprintf(2, "%.*s %.*s\n", width, "------------", width, "------------");
 	opname = "";

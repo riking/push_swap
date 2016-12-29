@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 16:48:34 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/29 14:49:19 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 15:32:47 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void			do_print(int width, long it_a, long it_b)
 		ft_dprintf(2, "%s%*d" RESET " %*s\n", color(it_a), width, (int)it_a,
 				width, "");
 	else
-		ft_dprintf(2, "%s%*d" RESET "%s%*d" RESET "\n", color(it_a), width,
+		ft_dprintf(2, "%s%*d" RESET " %s%*d" RESET "\n", color(it_a), width,
 				(int)it_a, color(it_b), width, (int)it_b);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 15:32:21 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/29 14:24:21 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 15:07:38 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static t_stack	*stack_new(void)
 	return (st);
 }
 
-static int 		strict_atoi(int *dst, const char *str)
+static int		strict_atoi(int *dst, const char *str)
 {
-	const char 			*s;
+	const char			*s;
 	unsigned long long	result;
-	int 				sign;
+	int					sign;
 
 	while (IS_SPACE(*str))
 		str++;
@@ -85,7 +85,7 @@ t_stack			*read_input(int argc, char **argv)
 		i = 0;
 		while (i < st->st_a.item_count)
 		{
-			if (*(int *) ft_ary_get(&st->st_a, i) == q)
+			if (*(int *)ft_ary_get(&st->st_a, i) == q)
 				GFAIL(NULL, cl(st));
 			i++;
 		}

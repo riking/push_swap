@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 19:20:32 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/29 15:31:27 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:26:35 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,10 @@ static t_cmreq	make_cmreq(t_side sd, t_array *left, t_array *right)
 static int		prep_recurse(t_sortreq req, t_stack *st, t_array *opsary)
 {
 	int		idx;
-	int		pushcnt;
 
 	idx = req.size / 2;
-	pushcnt = idx;
 	while (idx-- > 0)
-	{
 		merge_do(&opsary[2], st, op_on(OP_PB, req.sd));
-		if ((pushcnt - idx) >= 2 && req_cmp(req, -1, -2) > 0 && req_cmp2(req, stack_get(st, !req.sd, -1), stack_get(st, !req.sd, -2)) < 0)
-			merge_do(&opsary[2], st, OP_SS);
-	}
 	opsary[0] = pick_sort((t_sortreq){st, req.size - (int)(req.size / 2),
 			req.sd, req.inv});
 	opsary[1] = pick_sort((t_sortreq){st, req.size / 2, !req.sd, !req.inv});

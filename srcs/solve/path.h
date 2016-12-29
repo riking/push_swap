@@ -6,7 +6,7 @@
 /*   By: kyork <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 20:28:58 by kyork             #+#    #+#             */
-/*   Updated: 2016/12/10 22:20:14 by kyork            ###   ########.fr       */
+/*   Updated: 2016/12/29 14:55:00 by kyork            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ t_array			p_solution(t_psolver *g);
 void			p_setup(t_psolver *g);
 void			p_free(t_psolver *g);
 t_array			p_do_solve(t_stack *st, t_stack *sorted);
-t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted, int depth);
-
-void			debug_print_solution(t_psolver *g);
+t_array			p_optimize(t_array ops, t_stack *st, t_stack *sorted,
+					int depth);
 
 #endif
